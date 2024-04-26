@@ -4,7 +4,7 @@ import "./index.css";
 import { Provider } from "react-redux";
 import appStore from "./store/store.js";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Dashboard from "./pages/Dashboard.jsx";
+import Crypto from "./pages/Crypto.jsx";
 import Saved from "./pages/Saved.jsx";
 import Trending from "./pages/Trending.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
@@ -23,7 +23,7 @@ const rootRouter = createBrowserRouter([
       },
       {
         path: routes.CRYPTO,
-        element: <Dashboard />,
+        element: <Crypto />,
       },
       {
         path: routes.TRENDING,

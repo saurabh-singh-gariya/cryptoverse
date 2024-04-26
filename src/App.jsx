@@ -1,22 +1,14 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
-import { fetchCryptoCoins } from "./store/slice/cryptoSlice";
-import { useDispatch } from "react-redux";
-import Header from "./component/Header";
+import Header from "./component/Header/Header";
 import { Outlet } from "react-router-dom";
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    // dispatch(fetchCryptoCoins());
-  }, []);
-
   return (
-    <div>
+    <div className="mx-auto h-screen flex flex-col font-poppins">
       <Header />
-      <Outlet/>
+
+      <Outlet />
     </div>
   );
 }

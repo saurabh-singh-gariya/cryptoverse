@@ -1,11 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const fetchCryptoCoins = createAsyncThunk(
+export const fetchTrendingCoins = createAsyncThunk(
   "crypto/fetchCryptoCoins",
   async () => {
-    const url =
-      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd";
+    const url = "https://api.coingecko.com/api/v3/search/trending";
     const options = {
       method: "GET",
       headers: {
@@ -18,30 +17,30 @@ export const fetchCryptoCoins = createAsyncThunk(
 );
 
 const initialState = {
-  coins: [],
+  trendingCoins: [],
   loading: false,
   error: undefined,
 };
 
-const cryptoSlice = createSlice({
-  name: "crypto",
+const trendingSlice = createSlice({
+  name: "trendingCoins",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchCryptoCoins.pending, (state) => {
+    builder.addCase(fetchTrendingCoins.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(fetchCryptoCoins.rejected, (state, action) => {
+    builder.addCase(fetchTrendingCoins.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload.message;
     });
-    builder.addCase(fetchCryptoCoins.fulfilled, (state, action) => {
+    builder.addCase(fetchTrendingCoins.fulfilled, (state, action) => {
       state.loading = false;
-      state.coins = action.payload.data;
+      state.trendingCoins = action.payload.data;
     });
   },
 });
 
-export const getAllCryptoCoin = (state) => state.cryptoCoins.coins;
+export const getAllTrendingCoins = (state) => state.trendingCoins.trendingCoins;
 
-export default cryptoSlice.reducer;
+export default trendingSlice.reducer;
