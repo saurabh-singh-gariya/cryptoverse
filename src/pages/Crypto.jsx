@@ -3,12 +3,11 @@ import SearchBar from "../component/Crypto/SearchBar";
 import CryptoList from "../component/Crypto/CryptoList";
 import { mockData } from "../Constants/mockData";
 import { useEffect } from "react";
-import { fetchCryptoCoins } from "../store/slice/cryptoSlice";
+import { fetchCryptoCoins, resetCryotoStore } from "../store/slice/cryptoSlice";
 import { useDispatch, useSelector } from "react-redux";
-import ShimmerList from "../component/Common/ShimmerList";
+import ShimmerList from "../component/Crypto/Shimmer/ShimmerList";
+import TableHeader from "../component/Crypto/TableHeader";
 
-//is component k mount hone pe api call karni h
-//isme ek search bar hoga
 const Crypto = () => {
   const onSearchClicked = (searchedCoin) => {
     console.log(searchedCoin);
@@ -20,6 +19,9 @@ const Crypto = () => {
 
   useEffect(() => {
     dispatch(fetchCryptoCoins());
+    return () => {
+      dispatch(resetCryotoStore());
+    };
   }, []);
   return (
     <div className="w-[90%] mx-auto pt-8">
@@ -27,7 +29,8 @@ const Crypto = () => {
         <ShimmerList />
       ) : (
         <>
-          <SearchBar onSearchClicked={onSearchClicked} />
+          {/* <SearchBar onSearchClicked={onSearchClicked} /> */}
+          <TableHeader />
           <CryptoList cryptoList={coins} />
         </>
       )}

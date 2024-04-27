@@ -1,18 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { mapTrendingData } from "../utils/StoreUtil";
 
 export const fetchTrendingCoins = createAsyncThunk(
-  "crypto/fetchCryptoCoins",
+  "crypto/fetchTrendingCoins",
   async () => {
     const url = "https://api.coingecko.com/api/v3/search/trending";
     const options = {
       method: "GET",
-      headers: {
-        accept: "application/json",
-      },
     };
     const response = await axios.get(url, options);
-    return response;
+    return response.data;
   }
 );
 
@@ -25,7 +23,13 @@ const initialState = {
 const trendingSlice = createSlice({
   name: "trendingCoins",
   initialState,
-  reducers: {},
+  reducers: {
+    resetTrendingStore: (state) => {
+      state.trendingCoins = [];
+      state.error = undefined;
+      state.loading = false;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchTrendingCoins.pending, (state) => {
       state.loading = true;
@@ -36,11 +40,13 @@ const trendingSlice = createSlice({
     });
     builder.addCase(fetchTrendingCoins.fulfilled, (state, action) => {
       state.loading = false;
-      state.trendingCoins = action.payload.data;
+      state.trendingCoins = mapTrendingData(action.payload)?.slice(0, 10);
     });
   },
 });
 
 export const getAllTrendingCoins = (state) => state.trendingCoins.trendingCoins;
+
+export const { resetTrendingStore } = trendingSlice.actions;
 
 export default trendingSlice.reducer;

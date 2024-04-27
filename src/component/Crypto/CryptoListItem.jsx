@@ -32,7 +32,7 @@ const CryptoListItem = ({
           {truncatedName}
         </span>
       </div>
-      <div className="hidden md:block w-[20%]">
+      <div className="hidden md:block w-[20%] font-semibold">
         <span
           className={`py-1.5 px-2 border rounded-lg  hover:text-white ${
             getTwoFixedNum(price_change_percentage_24h) > 0
@@ -43,10 +43,10 @@ const CryptoListItem = ({
           {getTwoFixedNum(price_change_percentage_24h)}%
         </span>
       </div>
-      <div className="w-[35%] sm:w-[20%] md:w-[25%]">
+      <div className="w-[35%] sm:w-[20%] md:w-[25%] font-semibold">
         {getFormattedAmount(current_price)}
       </div>
-      <div className="hidden sm:flex w-[35%] md:w-[25%]">
+      <div className="hidden sm:flex w-[35%] md:w-[25%] font-semibold">
         {getFormattedAmount(market_cap)}
       </div>
     </div>

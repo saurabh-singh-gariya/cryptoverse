@@ -6,14 +6,8 @@ export const fetchCryptoCoins = createAsyncThunk(
   async () => {
     const url =
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd";
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-      },
-    };
-    const response = await axios.get(url, options);
-    return response;
+    const response = await axios.get(url);
+    return response.data;
   }
 );
 
@@ -26,7 +20,13 @@ const initialState = {
 const cryptoSlice = createSlice({
   name: "crypto",
   initialState,
-  reducers: {},
+  reducers: {
+    resetCryotoStore: (state) => {
+      state.coins = [];
+      state.loading = false;
+      state.error = undefined;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchCryptoCoins.pending, (state) => {
       state.loading = true;
@@ -37,11 +37,13 @@ const cryptoSlice = createSlice({
     });
     builder.addCase(fetchCryptoCoins.fulfilled, (state, action) => {
       state.loading = false;
-      state.coins = action.payload.data;
+      state.coins = action.payload;
     });
   },
 });
 
 export const getAllCryptoCoin = (state) => state.cryptoCoins.coins;
+
+export const { resetCryotoStore } = cryptoSlice.actions;
 
 export default cryptoSlice.reducer;
