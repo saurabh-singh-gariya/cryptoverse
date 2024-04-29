@@ -3,4 +3,5 @@ export const routes = {
   CRYPTO: "crypto",
   TRENDING: "trending",
   SAVED: "saved",
+  SINGLE_COIN: "coin/:id"
 };

@@ -4,12 +4,13 @@ import "./index.css";
 import { Provider } from "react-redux";
 import appStore from "./store/store.js";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Crypto from "./pages/Crypto.jsx";
-import Saved from "./pages/Saved.jsx";
-import Trending from "./pages/Trending.jsx";
-import ErrorPage from "./pages/ErrorPage.jsx";
+import Crypto from "./pages/Crypto";
+import Saved from "./pages/Saved";
+import Trending from "./pages/Trending";
+import ErrorPage from "./pages/ErrorPage";
 import { routes } from "./Constants/routerConstants.js";
-import Home from "./pages/Home.jsx";
+import Home from "./pages/Home";
+import SingleCoin from "./pages/SingleCoin";
 
 const rootRouter = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const rootRouter = createBrowserRouter([
       {
         path: routes.SAVED,
         element: <Saved />,
+      },
+      {
+        path: routes.SINGLE_COIN,
+        element: <SingleCoin />,
       },
     ],
   },

@@ -12,11 +12,3 @@
 body {
   background-color: #14161a;
 }
-
-.gridContainer{
-  grid-template-columns: repeat(4, 1fr);
-}
-
-@media screen and (max-width) {
-  
-}
