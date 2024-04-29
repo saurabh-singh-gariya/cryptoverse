@@ -18,7 +18,7 @@ export const fetchCryptoCoins = createAsyncThunk(
 const initialState = {
   coins: [],
   loading: false,
-  error: undefined,
+  error: null,
 };
 
 const cryptoSlice = createSlice({
@@ -42,6 +42,7 @@ const cryptoSlice = createSlice({
     builder.addCase(fetchCryptoCoins.fulfilled, (state, action) => {
       state.loading = false;
       state.coins = action.payload;
+      state.error = null;
     });
   },
 });

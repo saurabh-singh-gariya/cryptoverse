@@ -13,7 +13,7 @@ import { Line } from "react-chartjs-2";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchChartData } from "../../store/slice/singleCoinSlice";
-import { getHumanDate } from "../../Utils/DateTimeCovert";
+import { getHumanDate, getHumanTime } from "../../Utils/DateTimeCovert";
 
 ChartJS.register(
   CategoryScale,
@@ -42,6 +42,9 @@ const SingleCoinGraph = () => {
   const [days, setDays] = useState(1);
 
   const prices = useSelector((state) => state?.singleCoin?.chartData?.prices);
+  const chartLoading = useSelector(
+    (state) => state?.singleCoin?.chartData?.chartDataLoading
+  );
 
   useEffect(() => {
     dispatch(fetchChartData({ id, days }));
@@ -54,7 +57,9 @@ const SingleCoinGraph = () => {
   const labels =
     pricesData &&
     pricesData?.length &&
-    prices?.map((price) => getHumanDate(price[0]));
+    prices?.map((price) =>
+      days === 1 ? getHumanTime(price[0]) : getHumanDate(price[0])
+    );
   const lineChartData =
     pricesData &&
     pricesData.length &&
@@ -75,18 +80,26 @@ const SingleCoinGraph = () => {
   };
   return (
     <div className="w-full flex md:flex-col flex-col-reverse justify-center items-center h-full md:pl-4">
-      <Line data={data} options={options} />
-      <div className="mt-2 mb-5">
-        {buttons?.map((button) => (
-          <button
-            key={button.id}
-            className={`w-12 p-2 font-semibold border border-black ${days === button.value ? 'bg-yellow-700' : 'bg-yellow-300'}`}
-            onClick={() => setDays(button.value)}
-          >
-            {button.display}
-          </button>
-        ))}
-      </div>
+      {chartLoading ? (
+        <>Loading</>
+      ) : (
+        <>
+          <Line data={data} options={options} />
+          <div className="mt-2 mb-5">
+            {buttons?.map((button) => (
+              <button
+                key={button.id}
+                className={`w-12 p-2 font-semibold border border-black ${
+                  days === button.value ? "bg-yellow-700" : "bg-yellow-300"
+                }`}
+                onClick={() => setDays(button.value)}
+              >
+                {button.display}
+              </button>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };
