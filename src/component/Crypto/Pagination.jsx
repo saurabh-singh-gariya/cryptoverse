@@ -7,8 +7,8 @@ const Pagination = ({ listSize, pageSize, setCurrentPage, currentPage }) => {
     pageNos.push(i);
   }
   return (
-    <div className="w-full flex justify-between mt-6 px-10 flex-wrap">
-      <div
+    <div className="w-full flex justify-between mt-6 px-10 flex-wrap gap-2">
+      {/* <div
         onClick={() => {
           if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
@@ -17,7 +17,7 @@ const Pagination = ({ listSize, pageSize, setCurrentPage, currentPage }) => {
         className="p-1 rounded-lg hover:bg-[#FFD700] hover:text-black transition-all bg-black text-white font-lg font-medium cursor-pointer"
       >
         Prev
-      </div>
+      </div> */}
       {pageNos &&
         pageNos.length > 0 &&
         pageNos.map((pageNo) => (
@@ -33,7 +33,7 @@ const Pagination = ({ listSize, pageSize, setCurrentPage, currentPage }) => {
             {pageNo}
           </button>
         ))}
-      <div
+      {/* <div
         onClick={() => {
           if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1);
@@ -42,7 +42,7 @@ const Pagination = ({ listSize, pageSize, setCurrentPage, currentPage }) => {
         className="p-1 rounded-lg hover:bg-[#FFD700] hover:text-black transition-all bg-black text-white font-lg font-medium cursor-pointer"
       >
         Next
-      </div>
+      </div> */}
     </div>
   );
 };
