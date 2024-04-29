@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React from "react";
-import CurrencyFormat from "react-currency-format";
+import { FormattedNumber } from "react-intl";
 import { Link } from "react-router-dom";
 
 const CryptoListItem = ({
@@ -15,11 +15,10 @@ const CryptoListItem = ({
 }) => {
   const getTwoFixedNum = (value) => Number(value).toFixed(2);
   const getFormattedAmount = (value) => (
-    <CurrencyFormat
+    <FormattedNumber
+      style="currency"
       value={getTwoFixedNum(value)}
-      displayType="text"
-      thousandSeparator
-      prefix="$"
+      currency="USD"
     />
   );
   const truncatedName = name.length > 10 ? `${name.slice(0, 10)}...` : name;

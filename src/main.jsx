@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
+import { IntlProvider } from "react-intl";
 import { Provider } from "react-redux";
 import appStore from "./store/store.js";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
@@ -43,9 +44,11 @@ const rootRouter = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <Provider store={appStore}>
-    <RouterProvider router={rootRouter}>
-      <App />
-    </RouterProvider>
-  </Provider>
+  <IntlProvider locale="en" defaultLocale="en">
+    <Provider store={appStore}>
+      <RouterProvider router={rootRouter}>
+        <App />
+      </RouterProvider>
+    </Provider>
+  </IntlProvider>
 );

@@ -1,18 +1,16 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import ReactHtmlParser from "react-html-parser";
-import CurrencyFormat from "react-currency-format";
 import { getAmountMillion } from "../../Utils/CurrencyFormatter";
+import { FormattedNumber } from "react-intl";
 
 const SingleCoinAbout = ({ coin }) => {
   const id = "singleCoinAbout";
   const getTwoFixedNum = (value) => Number(value).toFixed(2);
   const getFormattedAmount = (value) => (
-    <CurrencyFormat
+    <FormattedNumber
+      style="currency"
       value={getTwoFixedNum(value)}
-      displayType="text"
-      thousandSeparator
-      prefix="$"
+      currency="USD"
     />
   );
   return (
@@ -33,7 +31,7 @@ const SingleCoinAbout = ({ coin }) => {
         id={id + ".description"}
         className="text-sm font-medium text-justify mb-4"
       >
-        {ReactHtmlParser(coin?.description?.en?.split(". ")[0])}.
+        {coin?.description?.en?.split(". ")[0]}.
       </div>
       <div id={id + ".rank"} className="w-full text-lg">
         <span className="mr-2 font-bold ">Rank:</span>

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import CurrencyFormat from "react-currency-format";
+import { FormattedNumber } from "react-intl";
 import { Link } from "react-router-dom";
 
 const TrendingListItem = ({
@@ -22,11 +22,10 @@ const TrendingListItem = ({
     return `$ ${getTwoFixedNum(Number(amountWithoutDollar) / 1000000)} M`;
   };
   const getFormattedAmount = (value) => (
-    <CurrencyFormat
+    <FormattedNumber
+      style="currency"
       value={getTwoFixedNum(value)}
-      displayType="text"
-      thousandSeparator
-      prefix="$"
+      currency="USD"
     />
   );
   return (
