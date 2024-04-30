@@ -8,5 +8,5 @@ export const getAmountMillion = (value) => {
     const amountString = array.join("");
     amountToChange = amountString.replace("$", "");
   }
-  return `$ ${getTwoFixedNum(Number(amountToChange) / 1000000)} M`;
+  return `$${getTwoFixedNum(Number(amountToChange) / 1000000)} M`;
 };
