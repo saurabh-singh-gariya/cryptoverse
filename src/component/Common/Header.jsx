@@ -2,7 +2,7 @@ import { useState } from "react";
 import { RiMenu3Fill } from "react-icons/ri";
 import { FaTimes } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
-import { routes } from "../../Constants/routerConstants";
+import { routes } from "../../Constants/constants";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);

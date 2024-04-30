@@ -27,12 +27,14 @@ const CryptoList = ({ cryptoList }) => {
             <CryptoListItem key={index} {...coin} />
           ))}
       </div>
-      <Pagination
-        listSize={cryptoList?.length}
-        pageSize={8}
-        currentPage={currentPage}
-        setCurrentPage={(pageNo) => onPageChanged(pageNo)}
-      />
+      {cryptoList?.length > 8 && (
+        <Pagination
+          listSize={cryptoList?.length}
+          pageSize={8}
+          currentPage={currentPage}
+          setCurrentPage={(pageNo) => onPageChanged(pageNo)}
+        />
+      )}
     </>
   );
 };

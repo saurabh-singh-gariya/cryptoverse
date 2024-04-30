@@ -14,6 +14,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchChartData } from "../../store/slice/singleCoinSlice";
 import { getHumanDate, getHumanTime } from "../../Utils/DateTimeCovert";
+import ErrorPage from "../../pages/ErrorPage";
 
 ChartJS.register(
   CategoryScale,
@@ -44,6 +45,9 @@ const SingleCoinGraph = () => {
   const prices = useSelector((state) => state?.singleCoin?.chartData?.prices);
   const chartLoading = useSelector(
     (state) => state?.singleCoin?.chartData?.chartDataLoading
+  );
+  const chartError = useSelector(
+    (state) => state?.singleCoin?.chartData?.chartDataError
   );
 
   useEffect(() => {
@@ -80,8 +84,8 @@ const SingleCoinGraph = () => {
   };
   return (
     <div className="w-full flex md:flex-col flex-col-reverse justify-center items-center h-full md:pl-4">
-      {chartLoading ? (
-        <>Loading</>
+      {chartError ? (
+        <ErrorPage errorMessage={chartError} />
       ) : (
         <>
           <Line data={data} options={options} />

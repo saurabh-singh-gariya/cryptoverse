@@ -9,9 +9,7 @@ import TableHeader from "../component/Crypto/TableHeader";
 import ErrorPage from "./ErrorPage";
 
 const Crypto = () => {
-  const onSearchClicked = (searchedCoin) => {
-    console.log(searchedCoin);
-  };
+  const [coinsList, setCoinsList] = useState([]);
   const dispatch = useDispatch();
 
   const coins = useSelector((state) => state?.cryptoCoins?.coins);
@@ -24,22 +22,37 @@ const Crypto = () => {
       dispatch(resetCryotoStore());
     };
   }, []);
+
+  useEffect(() => {
+    setCoinsList(coins);
+  }, [coins]);
+
+  const onSearchClicked = (searchedCoin) => {
+    if (searchedCoin) {
+      const filteredCoins = coins?.filter((coin) =>
+        coin?.name?.toLowerCase().includes(searchedCoin?.toLowerCase())
+      );
+      setCoinsList(filteredCoins);
+    } else {
+      setCoinsList(coins);
+    }
+  };
   return (
-    <div className="w-[90%] mx-auto pt-8">
+    <div className="w-[90%] mx-auto pt-8 h-full">
       {!error ? (
         <>
+          <SearchBar onSearchClicked={onSearchClicked} />
           <TableHeader />
           {coinsLoading ? (
             <ShimmerList />
           ) : (
             <>
-              {/* <SearchBar onSearchClicked={onSearchClicked} /> */}
-              <CryptoList cryptoList={coins} />
+              <CryptoList cryptoList={coinsList} />
             </>
           )}
         </>
       ) : (
-        <ErrorPage />
+        <ErrorPage errorMessage={error} />
       )}
     </div>
   );

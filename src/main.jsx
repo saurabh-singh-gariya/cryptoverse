@@ -9,7 +9,7 @@ import Crypto from "./pages/Crypto";
 import Saved from "./pages/Saved";
 import Trending from "./pages/Trending";
 import ErrorPage from "./pages/ErrorPage";
-import { routes } from "./Constants/routerConstants.js";
+import { routes } from "./Constants/constants.js";
 import Home from "./pages/Home";
 import SingleCoin from "./pages/SingleCoin";
 

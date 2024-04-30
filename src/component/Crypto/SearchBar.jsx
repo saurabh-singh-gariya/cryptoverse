@@ -1,12 +1,10 @@
 import { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
 
 // eslint-disable-next-line react/prop-types
 const SearchBar = ({ onSearchClicked }) => {
   const [searchText, setSearchText] = useState("");
   return (
     <div className="relative w-[70%] mx-auto">
-      <Toaster />
       <input
         className="w-full py-2 px-4 border border-black rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
         type="search"
@@ -16,14 +14,7 @@ const SearchBar = ({ onSearchClicked }) => {
       />
       <button
         onClick={() => {
-          if (searchText) {
-            onSearchClicked(searchText);
-          } else {
-            toast.error("Oops! Search something!!", {
-              duration: 2000,
-              position: "top-center",
-            });
-          }
+          onSearchClicked(searchText);
         }}
         className="absolute inset-y-0 right-0 flex items-center px-4 text-gray-700 bg-[#FFD700] border border-black rounded-r-md focus:outline-none"
       >

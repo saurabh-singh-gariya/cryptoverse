@@ -8,6 +8,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import TrendingList from "../component/Trending/TrendingList";
 import ShimmerList from "../component/Trending/Shimmer/ShimmerList";
+import ErrorPage from "./ErrorPage";
 
 const Trending = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const Trending = () => {
   const trendingCoins = useSelector(
     (state) => state?.trendingCoins?.trendingCoins
   );
+  const error = useSelector((state) => state?.trendingCoins?.error);
 
   return (
     <div className="w-[90%] mx-auto pt-8">
@@ -28,6 +30,8 @@ const Trending = () => {
       </div>
       {loading ? (
         <ShimmerList />
+      ) : error ? (
+        <ErrorPage errorMessage={error} />
       ) : (
         <TrendingList trendingCoins={trendingCoins} />
       )}

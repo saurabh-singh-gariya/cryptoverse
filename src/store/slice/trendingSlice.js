@@ -4,13 +4,19 @@ import { mapTrendingData } from "../utils/StoreUtil";
 
 export const fetchTrendingCoins = createAsyncThunk(
   "crypto/fetchTrendingCoins",
-  async () => {
-    const url = "https://api.coingecko.com/api/v3/search/trending";
-    const options = {
-      method: "GET",
-    };
-    const response = await axios.get(url, options);
-    return response.data;
+  async (_, { rejectWithValue }) => {
+    try {
+      const url = "https://api.coingecko.com/api/v3/search/trending";
+      const options = {
+        method: "GET",
+      };
+      const response = await axios.get(url, options);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error?.message ?? "Error While getting trending Coins"
+      );
+    }
   }
 );
 

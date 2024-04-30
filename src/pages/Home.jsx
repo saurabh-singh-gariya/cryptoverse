@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { routes } from "../Constants/routerConstants";
+import { routes } from "../Constants/constants";
 
 const Home = () => {
   return (

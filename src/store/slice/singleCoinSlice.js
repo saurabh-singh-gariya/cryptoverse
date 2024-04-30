@@ -3,23 +3,27 @@ import axios from "axios";
 
 export const fetchCoinById = createAsyncThunk(
   "singleCoin/fetchCoinById",
-  async (id) => {
+  async (id, { rejectWithValue }) => {
     try {
       const URL = `https://api.coingecko.com/api/v3/coins/${id}`;
       const response = await axios.get(URL);
       return response.data;
     } catch (error) {
-      return error?.message ?? "Error";
+      return rejectWithValue(error?.message ?? "Error");
     }
   }
 );
 
 export const fetchChartData = createAsyncThunk(
   "singleCoin/fetchChartData",
-  async ({ id, days }) => {
-    const URL = `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=${days}`;
-    const response = await axios.get(URL);
-    return response.data;
+  async ({ id, days }, { rejectWithValue }) => {
+    try {
+      const URL = `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=${days}`;
+      const response = await axios.get(URL);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error?.message ?? "Error");
+    }
   }
 );
 
@@ -52,7 +56,8 @@ const singleCoinSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(fetchCoinById.rejected, (state, action) => {
-      (state.loading = false), (state.error = action.payload.message);
+      state.loading = false;
+      state.error = action.payload;
     });
     builder.addCase(fetchCoinById.fulfilled, (state, action) => {
       state.loading = false;

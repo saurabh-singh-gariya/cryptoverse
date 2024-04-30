@@ -3,14 +3,14 @@ import axios from "axios";
 
 export const fetchCryptoCoins = createAsyncThunk(
   "crypto/fetchCryptoCoins",
-  async () => {
+  async (_,{ rejectWithValue }) => {
     try {
       const url =
         "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd";
       const response = await axios.get(url);
       return response.data;
     } catch (error) {
-      return error?.message ?? "Error ";
+      return rejectWithValue(error?.message ?? "error");
     }
   }
 );
@@ -37,7 +37,7 @@ const cryptoSlice = createSlice({
     });
     builder.addCase(fetchCryptoCoins.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.payload.message;
+      state.error = action.payload;
     });
     builder.addCase(fetchCryptoCoins.fulfilled, (state, action) => {
       state.loading = false;
