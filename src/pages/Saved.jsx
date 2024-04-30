@@ -15,8 +15,9 @@ const Saved = () => {
 
   useEffect(() => {
     const alreadySaved = getAlreadySavedCoins();
-    dispatch(fetchSavedCoins(alreadySaved));
-
+    if (alreadySaved) {
+      dispatch(fetchSavedCoins(alreadySaved));
+    }
     return () => {
       dispatch(resetSavedCoinsStore());
     };
@@ -28,20 +29,28 @@ const Saved = () => {
 
   return (
     <div className="w-[90%] mx-auto pt-8 h-full">
-      {!error ? (
+      {!getAlreadySavedCoins() ? (
+        <div className="w-full h-full flex items-center justify-center text-3xl font-extrabold text-white">
+          No Saved Coins!
+        </div>
+      ) : (
         <>
-          <TableHeader />
-          {coinsLoading ? (
-            <ShimmerList />
-          ) : (
+          {!error ? (
             <>
-              {/* <SearchBar onSearchClicked={onSearchClicked} /> */}
-              <CryptoList cryptoList={coins} />
+              <TableHeader />
+              {coinsLoading ? (
+                <ShimmerList />
+              ) : (
+                <>
+                  {/* <SearchBar onSearchClicked={onSearchClicked} /> */}
+                  <CryptoList cryptoList={coins} />
+                </>
+              )}
             </>
+          ) : (
+            <ErrorPage errorMessage={error} />
           )}
         </>
-      ) : (
-        <ErrorPage errorMessage={error} />
       )}
     </div>
   );
